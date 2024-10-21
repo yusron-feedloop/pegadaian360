@@ -1,0 +1,100 @@
+.sidebar a {
+  color: #000;
+}
+body {
+  padding-top: 60px; /* Space for the navbar */
+  background-color: #edf2f7;
+}
+.sidebar {
+  height: 100%;
+  position: fixed;
+  top: 70px; /* Space for the navbar */
+  left: 0;
+  width: 200px; /* Width of sidebar */
+  background-color: #f5f5f5;
+  border-right: 1px solid #ccc;
+  padding: 15px;
+}
+.content {
+  margin-left: 220px; /* Space for the sidebar */
+  padding: 40px;
+}
+.nav-pills > li > a {
+  border-radius: 0; /* Remove border radius for a flat look */
+}
+
+.section-header {
+    background-color: #008000; /* Green header */
+    color: white;
+    padding: 5px 10px;
+}
+.section-content {
+    background-color: #F0F4F8; /* Light background */
+    padding: 10px;
+    border: 1px solid #008000; /* Green border */
+    margin-bottom: 15px;
+}
+
+.message-card {
+    background-color: #B3E5FC; /* Light blue background */
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.status-badge {
+    background-color: #FFA000; /* Orange background */
+    padding: 5px 10px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    display: inline-block;
+}
+.date-badge {
+    background-color: #009688; /* Teal background */
+    padding: 5px 20px;
+    color: white;
+    border-radius: 20px;
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+}
+.message-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.message-details {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333;
+}
+.divider {
+    border-left: 2px solid #ccc;
+    height: 40px;
+    margin: 0 20px;
+}
+
+#loading {
+  display: none; /* Hidden by default */
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7); /* White with transparency */
+  color: black; /* Text color */
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 20%; /* Center vertically */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.sidebar a{
+  cursor: pointer;
+}
+
+#logoutButton{
+  cursor: pointer;
+}

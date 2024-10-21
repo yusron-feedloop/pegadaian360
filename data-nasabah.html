@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Nasabah</title>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/dashboard.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="loading">Loading...</div>
+    <!-- Navbar -->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner" style="padding: 0 50px 0 50px">
+        <button
+          type="button"
+          class="btn btn-navbar"
+          data-toggle="collapse"
+          data-target=".nav-collapse"
+        >
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="#"
+          ><img src="assets/image/logo.png" style="width: 60%"
+        /></a>
+        <div class="nav-collapse collapse">
+          <ul
+            class="nav pull-right"
+            style="padding-left: 50px; margin-top: 15px"
+          >
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                ><span id="tag-username">Username</span> <b class="caret"></b
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a id="logoutButton">Sign Out</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form pull-right" style="margin-top: 15px">
+            <input class="input-large" type="text" placeholder="Cari NIK"  id="input-nik"/>
+            <input class="input-large" type="text" placeholder="Cari No.HP" id="input-nohp" />
+            <input
+              class="input-large"
+              type="text"
+              placeholder="Cari Nama Lengkap" id="input-nama"
+            />
+          </form>
+        </div>
+        <!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul class="nav nav-pills nav-stacked">
+        <li>
+          <a onclick='redirectPage("dashboard.html")'
+            ><i class="icon-home"></i> Data pengajuan terakhir</a
+          >
+        </li>
+        <li class="active">
+          <a onclick='redirectPage("data-nasabah.html")'><i class="icon-book"></i> Data Nasabah</a>
+        </li>
+        <li>
+          <a onclick='redirectPage("detail-nasabah.html")'
+            ><i class="icon-ok-circle"></i> Detail Nasabah</a
+          >
+        </li>
+        <li>
+          <a onclick='redirectPage("riwayat-komplain.html")'
+            ><i class="icon-user"></i> Riwayat Komplain</a
+          >
+        </li>
+        <li>
+          <a onclick='redirectPage("riwayat-transaksi.html")'
+            ><i class="icon-user"></i> Riwayat Transaksi</a
+          >
+        </li>
+        <li>
+          <a onclick='redirectPage("riwayat-campaign.html")'
+            ><i class="icon-user"></i> Riwayat Campaign</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main content area -->
+    <div class="content">
+      <!-- Profile Section -->
+      <div class="section-content">
+        <h5 class="section-header">Profil</h5>
+        <div class="row">
+          <div class="span4"><strong>Nama</strong></div>
+          <div class="span8" id="text-nama"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Alamat KTP</strong></div>
+          <div class="span8" id="text-alamat-ktp"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Tempat & Tanggal Lahir</strong></div>
+          <div class="span8" id="text-tgl-lahir"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Umur</strong></div>
+          <div class="span8" id="text-umur"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Alamat Domisili</strong></div>
+          <div class="span8" id="text-alamat-domsisili"></div>
+        </div>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="section-content">
+        <h5 class="section-header">Kontak</h5>
+        <div class="row">
+          <div class="span4"><strong>No. Handphone</strong></div>
+          <div class="span8" id="text-nohp"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Email</strong></div>
+          <div class="span8" id="text-email"></div>
+        </div>
+      </div>
+
+      <!-- Portfolio Section -->
+      <div class="section-content">
+        <h5 class="section-header">Portfolio</h5>
+        <div class="row">
+          <div class="span4"><strong>Jumlah Kredit BJDPL</strong></div>
+          <div class="span8" id="text-kredit"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.cookie.min.js"></script>
+    <script>
+      loading(true);
+      $.ajax({
+        url : "https://asia-southeast2-accenture-283510.cloudfunctions.net/function-2",
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+          var result = response.data
+          loading(false);
+          if(result.Profile.nama){
+            $("#text-nama").text(result.Profile.nama);
+          }
+          
+          if(result.Profile.namaLengkap){
+            $("#text-nama").text(result.Profile.namaLengkap);
+          }
+          
+          $("#text-alamat-ktp").text(result.Geography.alamatKtp);
+          $("#text-tgl-lahir").text(result.Profile.tempatLahir+", "+result.Profile.tanggalLahir);  
+          $("#text-umur").text(calculateAge(result.Profile.tanggalLahir)); 
+          $("#text-alamat-domisili").text(result.Geography.alamatDomisili);
+          $("#text-nohp").text(result.Identity.phoneNumber);
+          $("#text-email").text(result.Identity.email);
+          $("#text-kredit").text(result.Transaction.jumlahKreditBJDPL);
+
+          
+        },
+        error: function (xhr, status, error) {
+          loading(false);
+          alert("Terjadi Kesalahan");
+        },
+      });
+    </script>
+  </body>
+</html>

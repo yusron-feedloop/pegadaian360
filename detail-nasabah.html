@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Nasabah</title>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/dashboard.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner" style="padding: 0 50px 0 50px">
+        <button
+          type="button"
+          class="btn btn-navbar"
+          data-toggle="collapse"
+          data-target=".nav-collapse"
+        >
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="#"
+          ><img src="assets/image/logo.png" style="width: 60%"
+        /></a>
+        <div class="nav-collapse collapse">
+          <ul
+            class="nav pull-right"
+            style="padding-left: 50px; margin-top: 15px"
+          >
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                ><span id="tag-username">Username</span> <b class="caret"></b
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a id="logoutButton">Sign Out</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form pull-right" style="margin-top: 15px">
+            <input class="input-large" type="text" placeholder="Cari NIK"  id="input-nik"/>
+            <input class="input-large" type="text" placeholder="Cari No.HP" id="input-nohp" />
+            <input
+              class="input-large"
+              type="text"
+              placeholder="Cari Nama Lengkap" id="input-nama"
+            />
+          </form>
+        </div>
+        <!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul class="nav nav-pills nav-stacked">
+        <li>
+          <a onclick='redirectPage("dashboard.html")'
+            ><i class="icon-home"></i> Data pengajuan terakhir</a
+          >
+        </li>
+        <li>
+          <a onclick='redirectPage("data-nasabah.html")'><i class="icon-book"></i> Data Nasabah</a>
+        </li>
+        <li class="active">
+          <a onclick='redirectPage("detail-nasabah.html")'
+            ><i class="icon-ok-circle"></i> Detail Nasabah</a
+          >
+        </li>
+        <li>
+          <a onclick='redirectPage("riwayat-komplain.html")'
+            ><i class="icon-user"></i> Riwayat Komplain</a
+          >
+        </li>
+        <li>
+          <a onclick='redirectPage("riwayat-transaksi.html")'
+            ><i class="icon-user"></i> Riwayat Transaksi</a
+          >
+        </li>
+        <li>
+          <a onclick='redirectPage("riwayat-campaign.html")'
+            ><i class="icon-user"></i> Riwayat Campaign</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main content area -->
+    <div class="content">
+      <div class="section-content">
+        <h5 class="section-header">Data Nasabah</h5>
+        <div class="row">
+          <div class="span4"><strong>NIK</strong></div>
+          <div class="span8" id="text-nik"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Pekerjaan</strong></div>
+          <div class="span8" id="text-pekerjaan"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Pendapatan</strong></div>
+          <div class="span8" id="text-pendapatan"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Status Pernikahan</strong></div>
+          <div class="span8" id="text-status-pernikahan"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Jumlah Anak</strong></div>
+          <div class="span8" id="text-jumlah-anak"></div>
+        </div>
+      </div>
+
+      <div class="section-content">
+        <h5 class="section-header">Produk</h5>
+        <div class="row">
+          <div class="span4"><strong>Produk Aktif</strong></div>
+          <div class="span8"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Jumlah Transaksi </strong></div>
+          <div class="span8"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Kolektibilitas </strong></div>
+          <div class="span8"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Total Omset yang Dihasilkan </strong></div>
+          <div class="span8"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Nilai CLTV </strong></div>
+          <div class="span8"></div>
+        </div>
+      </div>
+
+      <div class="section-content">
+        <h5 class="section-header">Outlet</h5>
+        <div class="row">
+          <div class="span4"><strong>Kode Outlet Terdaftar </strong></div>
+          <div class="span8"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Nama Outlet Terdaftar </strong></div>
+          <div class="span8"></div>
+        </div>
+      </div>
+
+      <div class="section-content">
+        <h5 class="section-header">Rekomendasi Nasabah</h5>
+        <div class="row">
+          <div class="span4"><strong>Segmentasi Nasabah</strong></div>
+          <div class="span8"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Rekomendasi Produk - Upsell</strong></div>
+          <div class="span8"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Rekomendasi Produk - Xsell</strong></div>
+          <div class="span8"></div>
+        </div>
+        <div class="row">
+          <div class="span4">
+            <strong>Rekomendasi Campaign - Promosi </strong>
+          </div>
+          <div class="span8"></div>
+        </div>
+        <div class="row">
+          <div class="span4">
+            <strong>Rekomendasi Campaign - Channel </strong>
+          </div>
+          <div class="span8"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Rekomendasi Komunikasi </strong></div>
+          <div class="span8"></div>
+        </div>
+        <div class="row">
+          <div class="span4">
+            <strong>Rekomendasi Touchpoint - Topik </strong>
+          </div>
+          <div class="span8"></div>
+        </div>
+        <div class="row">
+          <div class="span4">
+            <strong>Rekomendasi Touchpoint - Channel </strong>
+          </div>
+          <div class="span8"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.cookie.min.js"></script>
+  </body>
+</html>

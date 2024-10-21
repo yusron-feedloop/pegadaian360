@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Outlet</title>
+
+    <!-- Bootstrap 2.3.2 CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="loading">Loading...</div>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="nav-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav pull-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="tag-username">Username</span> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a id="logoutButton" >Sign Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.nav-collapse -->
+            </div>
+        </div><!-- /navbar-inner -->
+    </div>
+
+    <form class="form-signin" id="formOutlet">
+        <center>
+            <h2 class="form-signin-heading">Informasi C360</h2>
+        </center>
+        <p>
+            Silakan masukkan informasi berikut untuk melihat detail informasi
+            nasabah
+        </p>
+        <label class="mt10">NIK</label>
+        <input id="nik" type="text" class="input-block-level" />
+        <span class="muted">Sebaiknya pencarian menggunakan NIK</span>
+        <label class="mt10">No. HP</label>
+        <input id="phone" type="text" class="input-block-level" />
+        <span class="muted">Wajib isi jika NIK / Nama Lengkap kosong</span>
+        <label class="mt10">Nama Lengkap</label>
+        <input id="fullname" type="text" class="input-block-level" />
+        <span class="muted">Wajib isi jika NIK / No. HP kosong</span>
+        <button class="btn btn-info btn-block mt50" type="submit">
+            Sign in
+        </button>
+    </form>
+    </div>
+    <!-- /container -->
+
+    <!-- Bootstrap 2.3.2 JS -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/jquery.cookie.min.js"></script>
+
+</body>
+
+</html>
