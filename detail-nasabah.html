@@ -8,6 +8,7 @@
     <link href="assets/css/dashboard.css" rel="stylesheet" />
   </head>
   <body>
+    <div id="loading">Loading...</div>
     <!-- Navbar -->
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner" style="padding: 0 50px 0 50px">
@@ -116,23 +117,23 @@
         <h5 class="section-header">Produk</h5>
         <div class="row">
           <div class="span4"><strong>Produk Aktif</strong></div>
-          <div class="span8"></div>
+          <div class="span8" id="text-produk-aktif"></div>
         </div>
         <div class="row">
           <div class="span4"><strong>Jumlah Transaksi </strong></div>
-          <div class="span8"></div>
+          <div class="span8" id="text-jumlah-transaksi"></div>
         </div>
         <div class="row">
           <div class="span4"><strong>Kolektibilitas </strong></div>
-          <div class="span8"></div>
+          <div class="span8" id="text-kolektibilitas"></div>
         </div>
         <div class="row">
           <div class="span4"><strong>Total Omset yang Dihasilkan </strong></div>
-          <div class="span8"></div>
+          <div class="span8" id="text-total-omset"></div>
         </div>
         <div class="row">
           <div class="span4"><strong>Nilai CLTV </strong></div>
-          <div class="span8"></div>
+          <div class="span8" id="text-nilai-cltv"></div>
         </div>
       </div>
 
@@ -140,11 +141,11 @@
         <h5 class="section-header">Outlet</h5>
         <div class="row">
           <div class="span4"><strong>Kode Outlet Terdaftar </strong></div>
-          <div class="span8"></div>
+          <div class="span8" id="text-kode-outlet"></div>
         </div>
         <div class="row">
           <div class="span4"><strong>Nama Outlet Terdaftar </strong></div>
-          <div class="span8"></div>
+          <div class="span8" id="text-nama-outlet"></div>
         </div>
       </div>
 
@@ -152,43 +153,43 @@
         <h5 class="section-header">Rekomendasi Nasabah</h5>
         <div class="row">
           <div class="span4"><strong>Segmentasi Nasabah</strong></div>
-          <div class="span8"></div>
+          <div class="span8" id="text-segmentasi-nasabah"></div>
         </div>
         <div class="row">
           <div class="span4"><strong>Rekomendasi Produk - Upsell</strong></div>
-          <div class="span8"></div>
+          <div class="span8" id="text-upsell"></div>
         </div>
         <div class="row">
           <div class="span4"><strong>Rekomendasi Produk - Xsell</strong></div>
-          <div class="span8"></div>
+          <div class="span8" id="text-xsell"></div>
         </div>
         <div class="row">
           <div class="span4">
             <strong>Rekomendasi Campaign - Promosi </strong>
           </div>
-          <div class="span8"></div>
+          <div class="span8" id="text-promosi"></div>
         </div>
         <div class="row">
           <div class="span4">
             <strong>Rekomendasi Campaign - Channel </strong>
           </div>
-          <div class="span8"></div>
+          <div class="span8" id="text-channel"></div>
         </div>
         <div class="row">
           <div class="span4"><strong>Rekomendasi Komunikasi </strong></div>
-          <div class="span8"></div>
+          <div class="span8" id="text-komunikasi"></div>
         </div>
         <div class="row">
           <div class="span4">
             <strong>Rekomendasi Touchpoint - Topik </strong>
           </div>
-          <div class="span8"></div>
+          <div class="span8" id="text-touchpoint-topik"></div>
         </div>
         <div class="row">
           <div class="span4">
             <strong>Rekomendasi Touchpoint - Channel </strong>
           </div>
-          <div class="span8"></div>
+          <div class="span8" id="text-touchpoint-channel"></div>
         </div>
       </div>
     </div>
@@ -197,5 +198,55 @@
     <script src="assets/js/dashboard.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.cookie.min.js"></script>
+    <script>
+      loading(true);
+      var getNIK = getUrlParameter("nik");
+      $.ajax({
+        url : "https://asia-southeast2-accenture-283510.cloudfunctions.net/pegadaian-customer360?nik="+getNIK,
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+          var result = response.data
+          loading(false);
+
+          $("#text-nik").text(toEmptyString(result.Identity.nik));
+          $("#text-pekerjaan").text(toEmptyString(result.Work.pekerjaan));
+          $("#text-pendapatan").text(formatRupiah(result.Financial.totalPemasukan));
+          $("#text-status-pernikahan").text(toEmptyString(result["Lifestyle and life stages"].statusPerkawinan));
+          $("#text-jumlah-anak").text(toEmptyString(result["Lifestyle and life stages"].jumlahAnak));
+          $("#text-produk-aktif").text(joinStringArray(result.Transaction.daftarNamaProdukBerlangsung,","));
+          $("#text-jumlah-transaksi").text(toEmptyString(result.Transaction.jumlahTotalTransaksi));
+          $("#text-kolektibilitas").text(toEmptyString(result.Behavior.kolektibilitas));
+          $("#text-total-omset").text(formatRupiah(result.Transaction.totalOmset));
+          $("#text-nilai-cltv").text(formatRupiah(result.Analytics.nilaiCltv));
+          $("#text-kode-outlet").text(toEmptyString(result.Outlet.kodeOutlet));
+          $("#text-nama-outlet").text(toEmptyString(result.Outlet.namaOutlet));
+          $("#text-segmentasi-nasabah").text(toEmptyString(result.Analytics.segmenMikro));
+          if(result.Analytics.rekomendasiUpsell){
+            $("#text-upsell").text(toEmptyString(result.Analytics.rekomendasiUpsell));
+          }
+          if(result.Analytics.nbaProdukUpsell){
+            $("#text-upsell").text(toEmptyString(result.Analytics.nbaProdukUpsell));
+          }
+          if(result.Analytics.rekomendasiXsell){
+            $("#text-xsell").text(toEmptyString(result.Analytics.rekomendasiXsell));
+          }
+          if(result.Analytics.nbaProdukXsell){
+            $("#text-xsell").text(toEmptyString(result.Analytics.nbaProdukXsell));
+          }
+          $("#text-promosi").text(toEmptyString(result.Analytics.nbaCampaignPromosi));
+          $("#text-channel").text(toEmptyString(result.Analytics.nbaCampaignChannel));
+          $("#text-komunikasi").text(toEmptyString(result.Analytics.nbaKomunikasi));
+          $("#text-touchpoint-channel").text(toEmptyString(result.Analytics.nbaTouchpointTopik));
+          $("#text-touchpoint-topik").text(toEmptyString(result.Analytics.nbaTouchpointChannel));
+
+          
+        },
+        error: function (xhr, status, error) {
+          loading(false);
+          alert("Terjadi Kesalahan");
+        },
+      });
+    </script>
   </body>
 </html>

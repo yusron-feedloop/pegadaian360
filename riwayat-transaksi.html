@@ -74,8 +74,9 @@
     <script src="assets/js/jquery.cookie.min.js"></script>
     <script>
       loading(true);
+      var getNIK = getUrlParameter("nik");
       $.ajax({
-        url : "https://asia-southeast2-accenture-283510.cloudfunctions.net/function-2",
+        url : "https://asia-southeast2-accenture-283510.cloudfunctions.net/pegadaian-customer360?nik="+getNIK,
         type: "GET",
         dataType: "json",
         success: function (response) {

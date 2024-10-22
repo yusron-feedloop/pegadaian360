@@ -4,10 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Riwayat Campaign</title>
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/dashboard.css" rel="stylesheet" />
   </head>
   <body>
+    <div id="loading">Loading...</div>
     <!-- Navbar -->
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner" style="padding: 0 50px 0 50px">
@@ -34,17 +35,28 @@
                 ><span id="tag-username">Username</span> <b class="caret"></b
               ></a>
               <ul class="dropdown-menu">
-                <li><a id="logoutButton" >Sign Out</a></li>
+                <li><a id="logoutButton">Sign Out</a></li>
               </ul>
             </li>
           </ul>
           <form class="navbar-form pull-right" style="margin-top: 15px">
-            <input class="input-large" type="text" placeholder="Cari NIK"  id="input-nik"/>
-            <input class="input-large" type="text" placeholder="Cari No.HP" id="input-nohp" />
             <input
               class="input-large"
               type="text"
-              placeholder="Cari Nama Lengkap" id="input-nama"
+              placeholder="Cari NIK"
+              id="input-nik"
+            />
+            <input
+              class="input-large"
+              type="text"
+              placeholder="Cari No.HP"
+              id="input-nohp"
+            />
+            <input
+              class="input-large"
+              type="text"
+              placeholder="Cari Nama Lengkap"
+              id="input-nama"
             />
           </form>
         </div>
@@ -61,10 +73,14 @@
           >
         </li>
         <li>
-          <a onclick='redirectPage("data-nasabah.html")'><i class="icon-book"></i> Data Nasabah</a>
+          <a onclick='redirectPage("data-nasabah.html")'
+            ><i class="icon-book"></i> Data Nasabah</a
+          >
         </li>
         <li>
-          <a onclick='redirectPage("detail-nasabah.html")'><i class="icon-ok-circle"></i> Detail Nasabah</a>
+          <a onclick='redirectPage("detail-nasabah.html")'
+            ><i class="icon-ok-circle"></i> Detail Nasabah</a
+          >
         </li>
         <li>
           <a onclick='redirectPage("riwayat-komplain.html")'
@@ -77,7 +93,9 @@
           >
         </li>
         <li class="active">
-          <a  onclick='redirectPage("riwayat-campaign.html")'><i class="icon-user"></i> Riwayat Campaign</a>
+          <a onclick='redirectPage("riwayat-campaign.html")'
+            ><i class="icon-user"></i> Riwayat Campaign</a
+          >
         </li>
       </ul>
     </div>
@@ -86,50 +104,17 @@
     <div class="content">
       <div class="section-content">
         <h5 class="section-header">Riwayat Campaign</h5>
-        
-        <div class="message-card">
-          <div class="">
-            <div class="row">
-              <div class="span4">
-                <div class="status-badge">sent</div><br>
-                <div class="message-details">
-                  15 / 10 / 2024 | via WhatsApp
-                </div>
-              </div>
-              <div class="span1">
-                <div class="divider"></div>
-              </div>
-              <div class="span6">
-                <strong>A1 - 15 Oktober 2024 BELIEMAS Konven 2</strong>
-              </div>
-              <div class="span2">
-                <div class="date-badge">15 Okt 2024</div>
-              </div>
-            </div>
-          </div>
+        <div
+          class="alert alert-block alert-info"
+          id="data-kosong"
+          style="display: none"
+        >
+          <h5>Belum ada data</h5>
+        </div>
+        <div id="list-card">
+
         </div>
         
-        <div class="message-card">
-          <div class="">
-            <div class="row">
-              <div class="span4">
-                <div class="status-badge">sent</div><br>
-                <div class="message-details">
-                  15 / 10 / 2024 | via WhatsApp
-                </div>
-              </div>
-              <div class="span1">
-                <div class="divider"></div>
-              </div>
-              <div class="span6">
-                <strong>A1 - 15 Oktober 2024 BELIEMAS Konven 2</strong>
-              </div>
-              <div class="span2">
-                <div class="date-badge">15 Okt 2024</div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -137,5 +122,119 @@
     <script src="assets/js/dashboard.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.cookie.min.js"></script>
+    <script>
+      loading(true);
+      var getNIK = getUrlParameter("nik");
+      $.ajax({
+        url:
+          "https://asia-southeast2-accenture-283510.cloudfunctions.net/pegadaian-customer360?nik=" +
+          getNIK,
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+          var result = response.data;
+          loading(false);
+          var listData = [];
+          for (var i = 0; i < result.historiCampaign.historiCampaignList.length; i++) {
+            var data_camp = result.historiCampaign.historiCampaignList[i];
+            if (
+              ((data_camp.campaignType === "WhatsApp" ||
+                data_camp.campaignType === "Email") &&
+                (data_camp.conversionType === "sent" ||
+                  data_camp.conversionType === "read" ||
+                  data_camp.conversionType === "click")) ||
+              ((data_camp.campaignType === "SMS" ||
+                data_camp.campaignType === "Push Notification") &&
+                data_camp.conversionType === "sent")
+            ){
+              listData.push({
+                id: result.historiCampaign.historiCampaignList[i]
+                  .campaignId,
+                name: result.historiCampaign.historiCampaignList[i]
+                  .campaignName,
+                body: result.historiCampaign.historiCampaignList[i]
+                  .campaignDescription,
+                sent_by:
+                  result.historiCampaign.historiCampaignList[i]
+                    .campaignType,
+                campaign_start_at:
+                  result.historiCampaign.historiCampaignList[i]
+                    .executionDate,
+                campaign_end_at:
+                  result.historiCampaign.historiCampaignList[i].endDate,
+                sent_at:
+                  result.historiCampaign.historiCampaignList[i]
+                    .executionDate,
+                conversion_type:
+                  result.historiCampaign.historiCampaignList[i]
+                    .conversionType,
+                seq:
+                  data_camp.conversionType === "sent"
+                    ? 1
+                    : data_camp.conversionType === "read"
+                    ? 2
+                    : 3,
+                isActive : isCampaignRunning(result.historiCampaign.historiCampaignList[i].executionDate,result.historiCampaign.historiCampaignList[i].endDate)
+              });
+            }
+          }
+          listData.sort(function (a, b) {
+
+            var dateA = Date.parse(a.campaign_start_at);
+            var dateB = Date.parse(b.campaign_start_at);
+
+            if (dateA < dateB) return -1;
+            if (dateA > dateB) return 1;
+
+            return a.seq - b.seq;
+          });
+          if (listData.length === 0) {
+            $("#data-kosong").show();
+          }
+
+          var container = document.querySelector('#list-card');
+          for (var i = 0; i < listData.length; i++) {
+            var item = listData[i];
+
+            var messageCard = document.createElement('div');
+            
+            if(item.isActive === true){
+              messageCard.className = 'message-card-active';
+            }else{
+              messageCard.className = 'message-card';
+            }
+            
+
+            var messageContent =
+              '<div class="">' +
+                '<div class="row">' +
+                  '<div class="span4">' +
+                    '<div class="status-badge">' + item.conversion_type + '</div>' +
+                    '<br />' +
+                    '<div class="message-details">' + formatDate(item.sent_at) + ' | via ' + item.sent_by + '</div>' +
+                  '</div>' +
+                  '<div class="span1">' +
+                    '<div class="divider"></div>' +
+                  '</div>' +
+                  '<div class="span6">' +
+                    '<strong>' + item.name + '</strong>' +
+                  '</div>' +
+                  '<div class="span2">' +
+                    '<div class="date-badge">' + formatDate(item.sent_at) + '</div>' +
+                  '</div>' +
+                '</div>' +
+              '</div>';
+
+            messageCard.innerHTML = messageContent;
+
+            container.appendChild(messageCard);
+          }
+        },
+        error: function (xhr, status, error) {
+          loading(false);
+          alert("Terjadi Kesalahan");
+        },
+      });
+    </script>
   </body>
 </html>

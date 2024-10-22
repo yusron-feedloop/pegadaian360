@@ -110,7 +110,7 @@
         </div>
         <div class="row">
           <div class="span4"><strong>Alamat Domisili</strong></div>
-          <div class="span8" id="text-alamat-domsisili"></div>
+          <div class="span8" id="text-alamat-domisili"></div>
         </div>
       </div>
 
@@ -143,8 +143,9 @@
     <script src="assets/js/jquery.cookie.min.js"></script>
     <script>
       loading(true);
+      var getNIK = getUrlParameter("nik");
       $.ajax({
-        url : "https://asia-southeast2-accenture-283510.cloudfunctions.net/function-2",
+        url : "https://asia-southeast2-accenture-283510.cloudfunctions.net/pegadaian-customer360?nik="+getNIK,
         type: "GET",
         dataType: "json",
         success: function (response) {
@@ -158,13 +159,13 @@
             $("#text-nama").text(result.Profile.namaLengkap);
           }
           
-          $("#text-alamat-ktp").text(result.Geography.alamatKtp);
-          $("#text-tgl-lahir").text(result.Profile.tempatLahir+", "+result.Profile.tanggalLahir);  
-          $("#text-umur").text(calculateAge(result.Profile.tanggalLahir)); 
-          $("#text-alamat-domisili").text(result.Geography.alamatDomisili);
-          $("#text-nohp").text(result.Identity.phoneNumber);
-          $("#text-email").text(result.Identity.email);
-          $("#text-kredit").text(result.Transaction.jumlahKreditBJDPL);
+          $("#text-alamat-ktp").text(toEmptyString(result.Geography.alamatKtp));
+          $("#text-tgl-lahir").text(toEmptyString(result.Profile.tempatLahir)+", "+formatDate(result.Profile.tanggalLahir));  
+          $("#text-umur").text(calculateAge(toEmptyString(result.Profile.tanggalLahir))); 
+          $("#text-alamat-domisili").text(toEmptyString(result.Geography.alamatDomisili));
+          $("#text-nohp").text(toEmptyString(result.Identity.phoneNumber));
+          $("#text-email").text(toEmptyString(result.Identity.email));
+          $("#text-kredit").text(toEmptyString(result.Transaction.jumlahKreditBJDPL));
 
           
         },

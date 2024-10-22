@@ -35,29 +35,54 @@ body {
     margin-bottom: 15px;
 }
 
-.message-card {
+.message-card-active {
     background-color: #B3E5FC; /* Light blue background */
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 10px;
 }
 
+.message-card {
+  background-color: #dadada; /* Light blue background */
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+
 .status-badge {
-    background-color: #FFA000; /* Orange background */
-    padding: 5px 10px;
-    color: white;
-    font-weight: bold;
-    border-radius: 10px;
-    display: inline-block;
+  background-color: gray; /* Orange background */
+  padding: 5px 10px;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  display: inline-block;
 }
 .date-badge {
-    background-color: #009688; /* Teal background */
-    padding: 5px 20px;
-    color: white;
-    border-radius: 20px;
-    display: inline-block;
-    text-align: center;
-    font-weight: bold;
+  background-color: gray; /* Teal background */
+  padding: 5px 20px;
+  color: white;
+  border-radius: 20px;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+}
+
+.message-card-active .status-badge {
+  background-color: #FFA000; /* Orange background */
+  padding: 5px 10px;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  display: inline-block;
+}
+.message-card-active .date-badge {
+  background-color: #009688; /* Teal background */
+  padding: 5px 20px;
+  color: white;
+  border-radius: 20px;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
 }
 .message-info {
     display: flex;
