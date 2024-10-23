@@ -94,7 +94,45 @@ function formatDate(dateString) {
 }
 
 function toEmptyString(value) {
-    return value == null ? '' : value; 
+    return value == null ? '' : value;
+}
+
+function searchData(type, value) {
+    var params
+    if (type === "nik") {
+        params = "?nik=" + value
+    }
+    if (type === "phone") {
+        params = "?phone=" + value
+    }
+    if (type === "name") {
+        params = "?name=" + value
+    }
+
+    
+    var currentUrl = window.location.href;
+    var currentUrl = window.location.href;
+    var baseUrl = currentUrl.split('?')[0];
+
+    $('#loading-cari').show();
+    $.ajax({
+        type: 'GET',
+        url: 'https://asia-southeast2-accenture-283510.cloudfunctions.net/pegadaian-customer360' + params,
+        contentType: 'application/json',
+        success: function (response) {
+            $('#loading-cari').hide();
+            if (type === "nik") {
+                window.location.href = baseUrl+"?nik=" + value;
+            } else {
+                window.location.href = baseUrl+"?nik=" + response.data.audiences[0].nik
+            }
+        },
+        error: function () {
+            $('#loading-cari').hide();
+            alert('Mohon maaf data tidak ditemukan');
+        }
+    });
+
 }
 
 // var getNIK = getUrlParameter("nik");
@@ -134,33 +172,46 @@ $(document).ready(function () {
         window.location.href = "login.html";
     });
 
-    $('#input-nik').keydown(function(event) {
-        if (event.keyCode === 13) { 
-            event.preventDefault(); 
+    $('#input-nik').keydown(function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
             var nik = $(this).val();
+            if (!nik) {
+                alert("NIK kosong");
+                return;
+            }
             $("#input-nohp").val("");
             $("#input-nama").val("");
-            alert("Search : "+nik);
+
+            searchData("nik",nik);
         }
     });
 
-    $('#input-nohp').keydown(function(event) {
-        if (event.keyCode === 13) { 
-            event.preventDefault(); 
+    $('#input-nohp').keydown(function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
             var nohp = $(this).val();
+            if (!nohp) {
+                alert("No. HP kosong");
+                return;
+            }
             $("#input-nik").val("");
             $("#input-nama").val("");
-            alert("Search : "+nohp);
+            searchData("phone",nohp);
         }
     });
 
-    $('#input-nama').keydown(function(event) {
-        if (event.keyCode === 13) { 
-            event.preventDefault(); 
+    $('#input-nama').keydown(function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
             var nama = $(this).val();
+            if (!nama) {
+                alert("Nama Kosong");
+                return;
+            }
             $("#input-nohp").val("");
             $("#input-nik").val("");
-            alert("Search : "+nama);
+            searchData("name",nama);
         }
     });
 });

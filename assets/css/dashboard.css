@@ -116,6 +116,22 @@ body {
   z-index: 1000; /* Ensure it's above other content */
 }
 
+#loading-cari {
+  display: none; /* Hidden by default */
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7); /* White with transparency */
+  color: black; /* Text color */
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 20%; /* Center vertically */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
 .sidebar a{
   cursor: pointer;
 }
