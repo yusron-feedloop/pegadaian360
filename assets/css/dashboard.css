@@ -22,6 +22,9 @@ body {
 .nav-pills > li > a {
   border-radius: 0; /* Remove border radius for a flat look */
 }
+.ml-20 {
+  margin-left: 20px;
+}
 
 .section-header {
     background-color: #008000; /* Green header */

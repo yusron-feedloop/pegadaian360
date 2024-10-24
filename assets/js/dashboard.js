@@ -6,6 +6,17 @@ function loading(flag) {
     }
 }
 
+function removeSpecialCharacters(inputString) {
+
+    const pattern = /[^a-zA-Z0-9 ]/g;
+  
+    const cleanString = inputString.replace(pattern, "");
+
+    console.log(cleanString)
+    return cleanString == "null" || cleanString == null  ? '' : cleanString;
+
+  }
+
 function getUrlParameter(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
@@ -91,6 +102,23 @@ function formatDate(dateString) {
     }
 
     return day + '-' + month + '-' + year;
+}
+
+function getTime(dateString) {
+    dateString = dateString.replace(' ', 'T');
+
+    var date = new Date(dateString);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+
+    if (hours < 10) {
+        hours = '0' + hours;
+    }
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+
+    return hours + ':' + minutes;
 }
 
 function toEmptyString(value) {

@@ -4,16 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/dashboard.css" rel="stylesheet">
-
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/dashboard.css" rel="stylesheet" />
   </head>
   <body>
     <!-- Navbar -->
     <div id="loading">Loading...</div>
     <div id="loading-cari">Cari...</div>
     <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner" style="padding: 0 50px 0 50px;">
+      <div class="navbar-inner" style="padding: 0 50px 0 50px">
         <button
           type="button"
           class="btn btn-navbar"
@@ -24,23 +23,42 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="brand" href="#"><img src="assets/image/logo.png" style="width: 60%;" ></a>
+        <a class="brand" href="#"
+          ><img src="assets/image/logo.png" style="width: 60%"
+        /></a>
         <div class="nav-collapse collapse">
-            
-          <ul class="nav pull-right" style="padding-left: 50px; margin-top: 15px;">
+          <ul
+            class="nav pull-right"
+            style="padding-left: 50px; margin-top: 15px"
+          >
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                 ><span id="tag-username">Username</span> <b class="caret"></b
               ></a>
               <ul class="dropdown-menu">
-                <li><a id="logoutButton" >Sign Out</a></li>
+                <li><a id="logoutButton">Sign Out</a></li>
               </ul>
             </li>
           </ul>
-          <form class="navbar-form pull-right" style="margin-top: 15px;">
-            <input class="input-large" type="text" placeholder="Cari NIK"  id="input-nik"/>
-            <input class="input-large" type="text" placeholder="Cari No.HP" id="input-nohp" />
-            <input class="input-large" type="text" placeholder="Cari Nama Lengkap" id="input-nama" />
+          <form class="navbar-form pull-right" style="margin-top: 15px">
+            <input
+              class="input-large"
+              type="text"
+              placeholder="Cari NIK"
+              id="input-nik"
+            />
+            <input
+              class="input-large"
+              type="text"
+              placeholder="Cari No.HP"
+              id="input-nohp"
+            />
+            <input
+              class="input-large"
+              type="text"
+              placeholder="Cari Nama Lengkap"
+              id="input-nama"
+            />
           </form>
         </div>
         <!--/.nav-collapse -->
@@ -50,19 +68,117 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a onclick='redirectPage("dashboard.html")'><i class="icon-home"></i> Data pengajuan terakhir</a></li>
-        <li><a onclick='redirectPage("data-nasabah.html")'><i class="icon-book"></i> Data Nasabah</a></li>
-        <li><a onclick='redirectPage("detail-nasabah.html")'><i class="icon-ok-circle"></i> Detail Nasabah</a></li>
-        <li><a onclick='redirectPage("riwayat-komplain.html")'><i class="icon-user"></i> Riwayat Komplain</a></li>
-        <li><a onclick='redirectPage("riwayat-transaksi.html")'><i class="icon-user"></i> Riwayat Transaksi</a></li>
-        <li><a onclick='redirectPage("riwayat-campaign.html")'><i class="icon-user"></i> Riwayat Campaign</a></li>
+        <li class="active">
+          <a onclick='redirectPage("dashboard.html")'
+            ><i class="icon-home"></i> Data pengajuan terakhir</a
+          >
+        </li>
+        <li>
+          <a onclick='redirectPage("data-nasabah.html")'
+            ><i class="icon-book"></i> Data Nasabah</a
+          >
+        </li>
+        <li>
+          <a onclick='redirectPage("detail-nasabah.html")'
+            ><i class="icon-ok-circle"></i> Detail Nasabah</a
+          >
+        </li>
+        <li>
+          <a onclick='redirectPage("riwayat-komplain.html")'
+            ><i class="icon-user"></i> Riwayat Komplain</a
+          >
+        </li>
+        <li>
+          <a onclick='redirectPage("riwayat-transaksi.html")'
+            ><i class="icon-user"></i> Riwayat Transaksi</a
+          >
+        </li>
+        <li>
+          <a onclick='redirectPage("riwayat-campaign.html")'
+            ><i class="icon-user"></i> Riwayat Campaign</a
+          >
+        </li>
       </ul>
     </div>
 
     <!-- Main content area -->
     <div class="content">
-      <div class="alert alert-block alert-info">
+      <div class="alert alert-block alert-info" id="data-kosong" style="display: none;">
         <h5>Belum ada data</h5>
+      </div>
+
+      <!-- Profile Section -->
+      <div class="section-content">
+        <div class="row">
+          <div class="span4"><strong>Reservasi Outlet</strong></div>
+          <div class="span8" id="text-reservasi-outlet"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Tanggal Reservasi</strong></div>
+          <div class="span8" id="text-tgl-reservasi"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Waktu Reservasi</strong></div>
+          <div class="span8" id="text-waktu-reservasi"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Tanggal Pengajuan</strong></div>
+          <div class="span8" id="text-tgl-pengajuan"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Nama BPO</strong></div>
+          <div class="span8" id="text-nama-bpo"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>NIK Nasabah</strong></div>
+          <div class="span8" id="text-nik-nasabah"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Nama Lengkap</strong></div>
+          <div class="span8" id="text-nama-lengkap"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Tanggal Lahir</strong></div>
+          <div class="span8" id="text-tgl-lahir"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>No. Handphone</strong></div>
+          <div class="span8" id="text-nohp"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Nominal Transaksi</strong></div>
+          <div class="span8" id="text-nominal-transaksi"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Produk</strong></div>
+          <div class="span8" id="text-produk"></div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Barang Gadai</strong></div>
+          <div class="span8" id="text-barang-gadai"></div>
+        </div>
+        <div class="ml-20">
+          <div class="row">
+            <div class="span4"><strong>Jenis Barang</strong></div>
+            <div class="span8" id="text-jenis-barang"></div>
+          </div>
+          <div class="row">
+            <div class="span4"><strong>Jaminan Kepemilikan</strong></div>
+            <div class="span8" id="text-jaminan-kepemilikan"></div>
+          </div>
+          <div class="row">
+            <div class="span4"><strong>Tahun Pembelian</strong></div>
+            <div class="span8" id="text-tahun-pembelian"></div>
+          </div>
+          <div class="row">
+            <div class="span4"><strong>Kondisi</strong></div>
+            <div class="span8" id="text-kondisi"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span4"><strong>Pinjaman</strong></div>
+          <div class="span8" id="text-pinjaman"></div>
+        </div>
       </div>
     </div>
 
@@ -70,5 +186,48 @@
     <script src="assets/js/dashboard.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.cookie.min.js"></script>
+    <script>
+      loading(true);
+      var getNIK = getUrlParameter("nik");
+      $.ajax({
+        url : "https://asia-southeast2-accenture-283510.cloudfunctions.net/pegadaian-customer360?nik="+getNIK,
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+          var result = response.data
+          loading(false);
+          var  pengajuan = result.pengajuan.pengajuanHistory;
+          var trx = result.historiTransaksi.historiTransaksiHistory;
+
+          if(pengajuan.length === 0){
+            $("#data-kosong").show();
+            return;
+          }
+
+          $("#text-reservasi-outlet").text(toEmptyString(result.Outlet.namaOutlet));
+          $("#text-tgl-reservasi").text(formatDate(pengajuan[0].reservasiTanggal));
+          $("#text-waktu-reservasi").text("Pk. "+getTime(pengajuan[0].reservasiWaktuAwal)+ " - "+getTime(pengajuan[0].reservasiWaktuAkhir));
+          $("#text-tgl-pengajuan").text(formatDate(pengajuan[0].tanggalAktivitas));
+          $("#text-nama-bpo").text(toEmptyString(pengajuan[0].namaSales));
+          $("#text-nik-nasabah").text(toEmptyString(result.Identity.nik));
+          $("#text-nama-lengkap").text(toEmptyString(result.Profile.namaLengkap));
+          $("#text-tgl-lahir").text(formatDate(result.Profile.tanggalLahir));
+          $("#text-nohp").text(toEmptyString(result.Identity.phoneNumber));
+          $("#text-nominal-transaksi").text(trx[0] ? trx[0].nilaiTransaksi : "");
+          $("#text-produk").text(trx[0] ? trx[0].namaProduk : "");
+          $("#text-jenis-barang").text(removeSpecialCharacters(pengajuan[0].jaminanRubrik));
+          $("#text-jeminan-kepemilikan").text(removeSpecialCharacters(pengajuan[0].jaminanKepemilikan));
+          $("#text-tahun-pembelian").text(toEmptyString([0].jaminanTahunPerakitan));
+          $("#text-kondisi").text(removeSpecialCharacters(pengajuan[0].jaminanKondisi));
+          $("#text-pinjaman").text(formatRupiah(pengajuan[0].nominalPinjaman));
+
+          
+        },
+        error: function (xhr, status, error) {
+          loading(false);
+          alert("Terjadi Kesalahan");
+        },
+      });
+    </script>
   </body>
 </html>
