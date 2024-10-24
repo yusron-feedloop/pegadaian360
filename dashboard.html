@@ -108,7 +108,7 @@
       </div>
 
       <!-- Profile Section -->
-      <div class="section-content">
+      <div class="section-content" id="show-data">
         <div class="row">
           <div class="span4"><strong>Reservasi Outlet</strong></div>
           <div class="span8" id="text-reservasi-outlet"></div>
@@ -201,6 +201,7 @@
 
           if(pengajuan.length === 0){
             $("#data-kosong").show();
+            $("#show-data").hide();
             return;
           }
 
@@ -220,6 +221,7 @@
           $("#text-tahun-pembelian").text(toEmptyString([0].jaminanTahunPerakitan));
           $("#text-kondisi").text(removeSpecialCharacters(pengajuan[0].jaminanKondisi));
           $("#text-pinjaman").text(formatRupiah(pengajuan[0].nominalPinjaman));
+          $("#show-data").show();
 
           
         },
