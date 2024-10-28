@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Riwayat Komplain</title>
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/dashboard.css" rel="stylesheet" />
   </head>
   <body>
@@ -36,17 +36,28 @@
                 ><span id="tag-username">Username</span> <b class="caret"></b
               ></a>
               <ul class="dropdown-menu">
-                <li><a id="logoutButton" >Sign Out</a></li>
+                <li><a id="logoutButton">Sign Out</a></li>
               </ul>
             </li>
           </ul>
           <form class="navbar-form pull-right" style="margin-top: 15px">
-            <input class="input-large" type="text" placeholder="Cari NIK"  id="input-nik"/>
-            <input class="input-large" type="text" placeholder="Cari No.HP" id="input-nohp" />
             <input
               class="input-large"
               type="text"
-              placeholder="Cari Nama Lengkap" id="input-nama"
+              placeholder="Cari NIK"
+              id="input-nik"
+            />
+            <input
+              class="input-large"
+              type="text"
+              placeholder="Cari No.HP"
+              id="input-nohp"
+            />
+            <input
+              class="input-large"
+              type="text"
+              placeholder="Cari Nama Lengkap"
+              id="input-nama"
             />
           </form>
         </div>
@@ -63,10 +74,14 @@
           >
         </li>
         <li>
-          <a onclick='redirectPage("data-nasabah.html")'><i class="icon-book"></i> Data Nasabah</a>
+          <a onclick='redirectPage("data-nasabah.html")'
+            ><i class="icon-book"></i> Data Nasabah</a
+          >
         </li>
         <li>
-          <a onclick='redirectPage("detail-nasabah.html")'><i class="icon-ok-circle"></i> Detail Nasabah</a>
+          <a onclick='redirectPage("detail-nasabah.html")'
+            ><i class="icon-ok-circle"></i> Detail Nasabah</a
+          >
         </li>
         <li class="active">
           <a onclick='redirectPage("riwayat-komplain.html")'
@@ -79,7 +94,9 @@
           >
         </li>
         <li>
-          <a onclick='redirectPage("riwayat-campaign.html")'><i class="icon-user"></i> Riwayat Campaign</a>
+          <a onclick='redirectPage("riwayat-campaign.html")'
+            ><i class="icon-user"></i> Riwayat Campaign</a
+          >
         </li>
       </ul>
     </div>
@@ -88,8 +105,16 @@
     <div class="content">
       <div class="section-content">
         <h5 class="section-header">Riwayat Komplain</h5>
-        <div class="alert alert-block alert-info" id="data-kosong" style="display: none;">
+        <div
+          class="alert alert-block alert-info"
+          id="data-kosong"
+          style="display: none"
+        >
           <h5>Belum ada data</h5>
+        </div>
+        
+        <div id="card-container" style="display: none; padding: 0px 20px 10px 20px;">
+
         </div>
       </div>
     </div>
@@ -102,30 +127,83 @@
       loading(true);
       var getNIK = getUrlParameter("nik");
       $.ajax({
-        url : "https://asia-southeast2-accenture-283510.cloudfunctions.net/pegadaian-customer360?nik="+getNIK,
+        url:
+          "https://asia-southeast2-accenture-283510.cloudfunctions.net/pegadaian-customer360?nik=" +
+          getNIK,
         type: "GET",
         dataType: "json",
         success: function (response) {
-          var result = response.data
+          var result = response.data;
           loading(false);
           var listData = [];
-          for (var i = 0; i < result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory.length; i++) {
+          listData = [{
+            id : 1,
+            deskripsiTiket : "deskripsiTiket1",
+            tiketId : "T0001",
+            channelTiket : "channelTiket1",
+            namaUser : "namaUser1",
+            tanggalEskalasiTiket : "2024-01-03 00:00:00",
+            statusTiket : "open",
+            sumberTiket : "sumberTiket1"
+          },{
+            id : 2,
+            deskripsiTiket : "deskripsiTiket2",
+            tiketId : "T0002",
+            channelTiket : "channelTiket2",
+            namaUser : "namaUser2",
+            tanggalEskalasiTiket : "2024-11-03 00:00:00",
+            statusTiket : "open",
+            sumberTiket : "sumberTiket2"
+          }];
+
+          for (var i = 0; i < result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory.length; i++ ) {
             listData.push({
-                id: i,
-                deskripsiTiket: result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].deskripsiTiket,
-                tiketId: result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].tiketId,
-                channelTiket: result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].channelTiket,
-                namaUser: result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].namaUser,
-                tanggalEskalasiTiket: result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].tanggalEskalasiTiket,
-                statusTiket: result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].statusTiket,
-                sumberTiket: result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].sumberTiket,
+              id: i,
+              deskripsiTiket:result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].deskripsiTiket,
+              tiketId:result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].tiketId,
+              channelTiket:result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].channelTiket,
+              namaUser:result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].namaUser,
+              tanggalEskalasiTiket:result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].tanggalEskalasiTiket,
+              statusTiket:result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].statusTiket,
+              sumberTiket:result.submitEskalasiKeLevelDua.submitEskalasiKeLevelDuaHistory[i].sumberTiket,
             });
           }
-          if(listData.length === 0){
+          if (listData.length === 0) {
             $("#data-kosong").show();
+          }else{
+            $("#card-container").show();
           }
-
-          
+          for (var i = 0; i < listData.length; i++) {
+            var data = listData[i];
+            var cardHtml = 
+                "<div class='card mt-20'>" +
+                    "<div class='card-header'>" +
+                        "<div class='row'>" +
+                            "<div class='span3'>" + data.deskripsiTiket + "</div>" +
+                            "<div class='span3'>" + data.tiketId + "</div>" +
+                            "<div class='span3'>" + data.channelTiket + "</div>" +
+                            "<div class='span4'><div class='pull-right'>Agent: " + data.namaUser + "</div></div>" +
+                        "</div>" +
+                    "</div>" +
+                    "<div class='card-body'>" +
+                        "<div class='row'>" +
+                            "<div class='span1'><strong>Dibuat </strong></div>" +
+                            "<div class='span8'> : " + formatDateTime(data.tanggalEskalasiTiket) + "</div>" +
+                        "</div>" +
+                        "<div class='row'>" +
+                            "<div class='span1'><strong>Sumber </strong></div>" +
+                            "<div class='span8'> : " + data.sumberTiket + "</div>" +
+                            "<div class='span4'>" +
+                                "<div class='pull-right color-green" + "'>" +
+                                  data.statusTiket + " (5,1)" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>";
+            
+            $('#card-container').append(cardHtml);
+          }
         },
         error: function (xhr, status, error) {
           loading(false);

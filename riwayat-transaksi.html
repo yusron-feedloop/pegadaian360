@@ -66,6 +66,9 @@
         <div class="alert alert-block alert-info" id="data-kosong" style="display: none;">
           <h5>Belum ada data</h5>
         </div>
+        <div id="card-container" style="display: none; padding: 0px 20px 10px 20px;">
+
+        </div>
       </div>
     </div>
 
@@ -95,8 +98,60 @@
                   status: result.historiTransaksi.historiTransaksiHistory[i].statusTransaksi
               });
           }
+
+          listData = [{
+              id: 1,
+              namaProduk : "namaProduk",
+              timestamps : "2024-01-01 20:20:00",
+              nilaiTransaksi : "120000",
+              metodePembayaran : "Cash",
+              tujuanTransaksi : "investasi",
+              status : "success"
+          },{
+              id: 2,
+              namaProduk : "namaProduk2",
+              timestamps : "2024-01-04 10:20:00",
+              nilaiTransaksi : "50000000",
+              metodePembayaran : "Cash",
+              tujuanTransaksi : "mebabung",
+              status : "pending"
+          }]
+          
+
+
           if(listData.length === 0){
             $("#data-kosong").show();
+          }else{
+            $("#card-container").show();
+          }
+          
+          for (var i = 0; i < listData.length; i++) {
+            var item = listData[i];
+            var statusClass = item.status === "success" ? "status-success" : "status-pending"; 
+            var rupiah = formatRupiah(item.nilaiTransaksi)
+            var cardHTML = '<div class="card-transaksi mt-20">' +
+                '<span class="date-badge">' + formatDateTime(item.timestamps) + '</span>' +
+                '<div class="card-transaksi-body">' +
+                    '<div class="product-info">' +
+                        '<div class="row">' +
+                            '<div class="span4">' +
+                                '<strong>' + item.namaProduk + '</strong><br>' +
+                                item.tujuanTransaksi + '<br>' +
+                            '</div>' +
+                            '<div class="span4">' +
+                                'Pembayaran via ' + item.metodePembayaran +
+                            '</div>' +
+                            '<div class="span4">' +
+                                 rupiah +
+                            '</div>' +
+                            '<div class="span1">' +
+                              '<span class="status-badge ' + statusClass + '">' + item.status + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+            $('#card-container').append(cardHTML); 
           }
 
           
